@@ -95,6 +95,13 @@ python -m uvicorn backend.app:app --host 0.0.0.0 --port 8000
 
 The API serves `/health` for platform health checks and `/api/health` for application status. It is read-only and loads the committed Task 2 output. The production frontend uses `VITE_API_BASE_URL` as the API origin; leave it unset for the local Vite proxy. The API uses `CORS_ORIGINS`, a comma-separated list of allowed browser origins. Local development defaults to `http://localhost:5173,http://127.0.0.1:5173`.
 
+| Variable | Used by | Required value |
+| --- | --- | --- |
+| `VITE_API_BASE_URL` | Vite frontend at build time | API origin (for example, `https://autoinsight-api.onrender.com`); Render supplies it from the API service URL in `render.yaml`. Leave empty for local development with the Vite proxy. |
+| `CORS_ORIGINS` | FastAPI at runtime | Comma-separated browser origins allowed to call the API; Render supplies the dashboard service URL in `render.yaml`. Local development defaults to the two Vite localhost origins above. Add a custom dashboard domain here if one is configured. |
+
+These are the only application-specific environment variables currently required. Neither value is a secret. The current app requires no API keys, passwords, database credentials, or `.env` file in production. Keep any future credentials in the hosting provider's secret environment settings, never in Git.
+
 ## Render deployment
 
 The root `render.yaml` defines two services in a Render Blueprint:
