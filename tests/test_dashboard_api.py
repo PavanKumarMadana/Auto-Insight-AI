@@ -61,10 +61,16 @@ def test_overview_kpis_categories_and_months_match_source_and_outputs():
         source["Opened date"].map(parse_date).dropna().dt.strftime("%Y-%m").value_counts().sort_index().to_dict()
     )
     api = client.get("/api/overview").json()
+    options = client.get("/api/options").json()
     actual_categories = {item["label"]: item["count"] for item in api["issues"]}
     actual_months = {item["month"]: item["events"] for item in api["monthly"]}
 
     assert api["summary"]["total_events"] == len(source) == 1000
+    opened_dates = source["Opened date"].map(parse_date)
+    assert opened_dates.min().date().isoformat() == "2019-08-27"
+    assert opened_dates.max().date().isoformat() == "2021-06-01"
+    assert options["date_min"] == opened_dates.min().date().isoformat()
+    assert options["date_max"] == opened_dates.max().date().isoformat()
     assert api["summary"]["unique_event_ids"] == source["Event id"].nunique() == 1000
     assert api["summary"]["distinct_categories"] == len(expected_categories) == 6
     assert api["summary"]["distinct_complaint_codes"] == source["COMPLAINT_CD_DESC"].nunique()
