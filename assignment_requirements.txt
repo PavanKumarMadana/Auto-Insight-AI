@@ -1,0 +1,125 @@
+--- PAGE 1 ---\nHANUAI – ML ASSESMENT 
+ 
+Background: 
+You have recently joined HanuAi, a leading technology company revolutionizing 
+engineering quality and safety with AI-driven solutions. HanuAi’s innovative tools leverage 
+cutting-edge AI technologies, including Generative AI and Large Language Models (LLMs), 
+to address complex challenges in data processing, automation, and analytics for Road and 
+Infra Maintenance. 
+This task is designed to evaluate your data analytics and value addition approach to solve 
+customer problems. The response of this assignment will be evaluated on – 
+● Understanding of data and tools used to perform the analysis 
+● Value generation via potential insights found during analysis 
+● Documentation/presentation to stakeholders 
+ 
+ 
+Task 1: Web Scraping and Sentiment Analysis 
+ 
+Objective - Write a Python script to scrape product reviews from an e-commerce website 
+- www.bestbuy.ca/en-ca. The script should handle multiple filters, paginate through review 
+pages, and extract key review details. The code should only extract the data available for 
+public view and should not violate any website policy. 
+(Choose any product that has at least 50 reviews from the BestBuy Canada website) 
+ 
+Guidelines 
+1. Setup - Choose a Web Scraping Library: Use a Python web scraping library such 
+as Selenium, Beautiful Soup, or similar tools. 
+a. Apply Filters and Load Pages: Implement functionality to apply multiple 
+filters and load all pages to maximize the number of reviews mined. 
+2. Data Scraping- Extract Required Details having below fields, but not limited to: 
+a. Primary Key 
+b. Title 
+c. Review Text 
+d. Date (formatted as YYYY-MM-DD) 
+e. Rating (out of 5) 
+f. Source 
+g. Reviewer Name 
+3. Additional comments on scraping 
+a. Pagination and Filters - Handle Pagination by clicking the "Show More" 
+buttons to access all available reviews. 
+b. Use filters such as "Most Helpful," "Newest," "Highest Rating," "Lowest 
+Rating," and "Most Relevant" to refine the review extraction process.
+\n--- PAGE 2 ---\n4. Sentiment Analysis – Provide a code example that demonstrates the complete 
+process loading the review text, preprocessing it if necessary, applying a suitable 
+model or technique for sentiment analysis, and categorizing the results. 
+a. Refer below image as an example of sentiment categorisation 
+ 
+ 
+ID 
+TITLE 
+REVIEW 
+SENTIMENT 
+R10876HKPBLSPǪ Very nice! 
+Colour is very pretty…easy to 
+assemble! 
+Bought for granddaughter! 
+['Good 
+Design 
+C 
+Ǫuality (Pos)'] 
+R1091K6DK0TN0D Mmm 
+I like the is not to bulky and it 
+works perfect for rear facing 
+when front facing it dsnt 
+rotate 
+that why I’m giving it 4 stars 
+['Satisfactory 
+C 
+Recommended 
+(Pos)'] 
+5. Suggested solution for scraping challenges 
+a. Suggest ways to handle anti-scraping blockers e.g. rotating proxies, 
+CAPTCHA bypass, or retry mechanisms, IP blocking. 
+6. Business Context 
+a. Provide a summary of insights, such as top drivers of customer satisfaction 
+and dissatisfaction, with recommendations for improvement. 
+ 
+Deliverables 
+1. Share the Python script (.ipynb) used for web scraping and sentiment analysis. 
+(Include explanation of your code as comments in script.) 
+2. Submit the excel/csv file highlight outputs of scraped fields and sentiment 
+categorisation. 
+3. Draft a report/doc including – 
+a. Solution for scraping challenges 
+b. Summary of potential insights for stakeholders, with recommendation for 
+improvement 
+ 
+ 
+ 
+TASK 2: Advanced EDA and Text Mining 
+Objective – Perform comprehensive EDA, text mining, and actionable insight generation 
+using the provided dataset. 
+ 
+Guidelines – 
+1. Exploratory Data Analysis (Using python) 
+a. To understand data types, volume and characteristic per column. Identify 
+and solve for missing values, duplicated and other inconsistencies found.
+\n--- PAGE 3 ---\nb. Identify critical columns that looks insightful for stakeholders and provide a 
+summary of key statistical analysis along with distribution/visualizations for 
+critical columns identified. 
+2. Text Mining (Using NLP/open source LLM based) 
+a. Transform unstructured data into Structure format – 
+i. To identify free text columns given in raw data. 
+ii. Use text mining techniques to extract meaningful tags from the free 
+text fields. (Refer to few examples of entities (but not limited to) 
+given in excel file) 
+b. Categories “type of issues” (e.g. component failure, electrical issue etc.) 
+based upon observation/grouping of mined entities. 
+3. Insights for stakeholders 
+a. Identify patterns and trends, highlighting significant changes in event 
+frequencies, e.g. most occurring failure reported 
+b. Provide actionable recommendation for stakeholders to improve product 
+quality and performance based upon your analysis. 
+c. Apply clustering or topic modelling techniques to group failure modes or 
+customer complaints into categories. 
+i. identify potential root causes for recurring failures. 
+Deliverables 
+1. Submit the python script (.ipynb) used for analysis. (Include a explanation of your 
+code as comments in script.) 
+2. Submit the excel/csv file highlight extracted tags in text mining. 
+3. Draft a report/doc including – 
+● Overall synthesis of your understanding of the data, possible analysis 
+outcomes and potential value generation for customers. 
+● Summary of actionable points for stakeholders detailing business impact as per 
+the insights generated from raw + extracted/mined data 
+● Key learnings and further improvements on this task. 

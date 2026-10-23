@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: autoinsight-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-api.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: CORS_ORIGINS
+        fromService:
+          type: web
+          name: autoinsight-dashboard
+          envVarKey: RENDER_EXTERNAL_URL
+
+  - type: web
+    name: autoinsight-dashboard
+    runtime: static
+    buildCommand: cd ui && npm ci && npm run build
+    staticPublishPath: ui/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: autoinsight-api
+          envVarKey: RENDER_EXTERNAL_URL
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

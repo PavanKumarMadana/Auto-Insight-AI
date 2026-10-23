@@ -1,0 +1,16 @@
+{
+  "collected_at_utc": "2026-10-23T06:41:28.440085+00:00",
+  "product_url": "https://www.bestbuy.ca/en-ca/product/sony-wh-rf400-over-ear-sound-isolating-rf-headphones-black/13029605",
+  "sorts_requested": [
+    "Most Helpful",
+    "Newest",
+    "Highest Rating",
+    "Lowest Rating",
+    "Most Relevant"
+  ],
+  "pages_visited": [],
+  "unique_reviews": 0,
+  "failed_requests": [
+    "HTTP 403; stopped to respect site restrictions"
+  ]
+}

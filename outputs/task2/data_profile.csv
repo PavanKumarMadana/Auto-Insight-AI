@@ -1,0 +1,21 @@
+column,dtype,non_null,missing,unique_non_null
+Event id,string,1000,0,1000
+Opened date,str,1000,0,397
+CAUSAL_VERBATIM,str,999,1,944
+CORRECTION_VERBATIM,str,1000,0,952
+CUSTOMER_VERBATIM,str,1000,0,990
+BUILD_DATE,str,1000,0,37
+BUILD_PLANT_DESC,str,1000,0,8
+CAUSAL_CD_DESC,str,997,3,38
+COMPLAINT_CD_DESC,str,1000,0,9
+IN_USE_DATE,str,999,1,285
+MAKE,str,1000,0,4
+MODEL,str,1000,0,23
+MODLYR,int64,1000,0,1
+PLANT,str,1000,0,8
+Trigger,str,5,995,2
+Failure Component,str,5,995,5
+Failure Condition,str,5,995,5
+Additional Context,str,5,995,2
+Fix Component,str,5,995,3
+Fix Condition,str,5,995,2

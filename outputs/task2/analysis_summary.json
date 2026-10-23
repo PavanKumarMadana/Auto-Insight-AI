@@ -1,0 +1,131 @@
+{
+  "dataset": "Hanuai_task2_assignment.csv",
+  "rows": 1000,
+  "columns": 20,
+  "exact_duplicate_rows": 0,
+  "duplicate_event_ids": 0,
+  "date_ranges": {
+    "Opened date": {
+      "min": "2019-08-27 00:00:00+00:00",
+      "max": "2021-06-01 00:00:00+00:00",
+      "invalid_or_missing": 0
+    },
+    "BUILD_DATE": {
+      "min": "2019-08-01 00:00:00+00:00",
+      "max": "2019-09-07 00:00:00+00:00",
+      "invalid_or_missing": 0
+    },
+    "IN_USE_DATE": {
+      "min": "2019-08-03 00:00:00+00:00",
+      "max": "2021-03-31 00:00:00+00:00",
+      "invalid_or_missing": 1
+    }
+  },
+  "missing_by_column": {
+    "Event id": 0,
+    "Opened date": 0,
+    "CAUSAL_VERBATIM": 1,
+    "CORRECTION_VERBATIM": 0,
+    "CUSTOMER_VERBATIM": 0,
+    "BUILD_DATE": 0,
+    "BUILD_PLANT_DESC": 0,
+    "CAUSAL_CD_DESC": 3,
+    "COMPLAINT_CD_DESC": 0,
+    "IN_USE_DATE": 1,
+    "MAKE": 0,
+    "MODEL": 0,
+    "MODLYR": 0,
+    "PLANT": 0,
+    "Trigger": 995,
+    "Failure Component": 995,
+    "Failure Condition": 995,
+    "Additional Context": 995,
+    "Fix Component": 995,
+    "Fix Condition": 995
+  },
+  "category_counts": {
+    "MAKE": {
+      "ThunderVolt": 488,
+      "NovaSprint": 335,
+      "NebulaCruiser": 125,
+      "TurboFlux": 52
+    },
+    "BUILD_PLANT_DESC": {
+      "Fort Wayne": 217,
+      "Flint": 208,
+      "Silao": 199,
+      "Spring Hill - Truck": 169,
+      "Lansing Delta": 142,
+      "Ramos Arizpe": 39,
+      "Fairfax II": 16,
+      "Lansing - LGR": 10
+    },
+    "CAUSAL_CD_DESC": {
+      "Module/Component-No/Incorrect Communication": 377,
+      "Module/Component-Shorted": 237,
+      "Module/Component-Registers Incorrectly": 121,
+      "Wiring/Electrical/Sensors-No/Incorrect Communication": 50,
+      "Module/Component-Broken": 41,
+      "Wiring/Electrical/Sensors-Shorted": 23,
+      "Other-Campaign/ Tech Bulletin": 22,
+      "Other-Follow operation": 22,
+      "Other-No trouble found  - adjusted / reprogrammed": 21,
+      "Wiring/Electrical/Sensors-Registers Incorrectly": 12,
+      "Module/Component-Poor Contact": 9,
+      "Module/Component-Worn/Stripped": 8,
+      "Module/Component-Damaged/Cracked": 8,
+      "Module/Component-Discharge": 7,
+      "Module/Component-Incorrect Version": 5,
+      "Rotating Part-Alignment/Adjustment": 4,
+      "(missing)": 3,
+      "Module/Component-Alignment/Adjustment": 3,
+      "Surface (interior)-Broken": 2,
+      "Wiring/Electrical/Sensors-Discharge": 2
+    },
+    "COMPLAINT_CD_DESC": {
+      "Audio/Entertainment/Navigation - Audio": 337,
+      "Audio/Entertainment/Navigation - Other issues": 263,
+      "Audio/Entertainment/Navigation - Communication": 194,
+      "Audio/Entertainment/Navigation - Video": 103,
+      "Features/Controls/Displays - Other issues": 47,
+      "Audio/Entertainment/Navigation - Navigation": 32,
+      "Features/Controls/Displays - Gauges/Warning Lights": 12,
+      "\u00a0Audio/Entertainment/Navigation\u00a0-\u00a0Abnormal\u00a0Noise": 11,
+      "Features/Controls/Displays - Odometer": 1
+    }
+  },
+  "issue_category_counts": {
+    "Connectivity / communication": 608,
+    "Software / programming": 177,
+    "Electrical / power": 108,
+    "Radio / audio": 59,
+    "Display / screen": 45,
+    "Other / unspecified": 3
+  },
+  "supplied_entity_non_null": {
+    "Trigger": 5,
+    "Failure Component": 5,
+    "Failure Condition": 5,
+    "Additional Context": 5,
+    "Fix Component": 5,
+    "Fix Condition": 5
+  },
+  "text_length": {
+    "CAUSAL_VERBATIM": {
+      "mean": 140.103,
+      "median": 77.0,
+      "empty": 1
+    },
+    "CORRECTION_VERBATIM": {
+      "mean": 179.759,
+      "median": 97.5,
+      "empty": 0
+    },
+    "CUSTOMER_VERBATIM": {
+      "mean": 100.423,
+      "median": 79.0,
+      "empty": 0
+    }
+  },
+  "cluster_count": 5
+}

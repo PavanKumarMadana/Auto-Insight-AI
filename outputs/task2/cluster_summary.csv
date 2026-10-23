@@ -1,0 +1,6 @@
+cluster,records,top_terms,silhouette_sample
+0,401,module; code; usb; check; ok; customer; replaced; program; states; update,0.014763072588866522
+1,167,screen; radio screen; internal; blank; fault; goes; internal fault; replace; replace radio; screen goes,0.014763072588866522
+2,80,camera; rear; coax; camera inop; video; cable; view; backup; backup camera; rear view,0.014763072588866522
+3,45,card; sd; sd card; error; navigation; nav; message; error code; usb; replaced,0.014763072588866522
+4,307,xm; tac; customer; replaced; vehicle; states; case; concern; replaced radio; customer states,0.014763072588866522
