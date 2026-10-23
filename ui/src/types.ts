@@ -10,7 +10,7 @@ export type EventRecord = {
 export type CountItem = { label: string; count: number }
 export type FilterState = { date_from: string; date_to: string; make: string; model: string; plant: string; category: string }
 export type OverviewData = {
-  summary: { total_events: number; unique_event_ids: number; distinct_components: number; distinct_categories: number; distinct_causal_codes: number; denominator: number }
+  summary: { total_events: number; unique_event_ids: number; distinct_components: number; distinct_categories: number; distinct_causal_codes: number; distinct_complaint_codes: number; annotated_records: number; annotation_field_counts: Record<string, number>; component_condition_records: number; distinct_plants: number; model_years: string[]; denominator: number }
   monthly: { month: string; events: number }[]
   complaints: CountItem[]; causes: CountItem[]; issues: CountItem[]; makes: CountItem[]; models: CountItem[]; plants: CountItem[]; components: CountItem[]; conditions: CountItem[]; fixes: CountItem[]; combinations: CountItem[]; recent: EventRecord[]
 }

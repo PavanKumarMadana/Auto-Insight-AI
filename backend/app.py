@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 EVENTS_PATH = ROOT / "outputs/task2/events_enriched.csv"
 REVIEWS_PATH = ROOT / "outputs/task1/reviews_with_sentiment.csv"
 REPORT_DIR = ROOT / "reports"
+ANNOTATION_COLUMNS = ["Trigger", "Failure Component", "Failure Condition", "Additional Context", "Fix Component", "Fix Condition"]
 app = FastAPI(title="AutoInsight AI API", version="1.0.0")
 def configured_origins() -> list[str]:
     configured = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
@@ -57,7 +58,7 @@ def records_frame(df: pd.DataFrame) -> pd.DataFrame:
     for col in ["Opened date_parsed", "BUILD_DATE_parsed", "IN_USE_DATE_parsed"]:
         if col in out:
             out[col] = out[col].map(lambda x: x.isoformat() if pd.notna(x) else None)
-    return out
+    return out.astype(object).where(pd.notna(out), None)
 
 
 def filter_df(df: pd.DataFrame, date_from: str | None = None, date_to: str | None = None, make: str | None = None, model: str | None = None, plant: str | None = None, category: str | None = None) -> pd.DataFrame:
@@ -76,6 +77,26 @@ def count_series(df: pd.DataFrame, column: str, limit: int = 12) -> list[dict[st
     if column not in df: return []
     values = df[column].replace("", "Not recorded").value_counts().head(limit)
     return [{"label": str(k), "count": int(v)} for k, v in values.items()]
+
+
+def monthly_counts(source: pd.DataFrame, df: pd.DataFrame, date_from: str | None, date_to: str | None) -> list[dict[str, Any]]:
+    """Return a continuous month axis, with zeroes for months lacking filtered records."""
+    source_dates = source["Opened date_parsed"].dropna()
+    if source_dates.empty:
+        return []
+
+    first_month = source_dates.min().strftime("%Y-%m")
+    last_month = source_dates.max().strftime("%Y-%m")
+    start = pd.to_datetime(date_from, errors="coerce", utc=True) if date_from else pd.NaT
+    end = pd.to_datetime(date_to, errors="coerce", utc=True) if date_to else pd.NaT
+    first_month = max(first_month, start.strftime("%Y-%m") if pd.notna(start) else first_month)
+    last_month = min(last_month, end.strftime("%Y-%m") if pd.notna(end) else last_month)
+    if first_month > last_month:
+        return []
+
+    periods = pd.period_range(start=first_month, end=last_month, freq="M")
+    observed = df["Opened date_parsed"].dropna().dt.strftime("%Y-%m").value_counts()
+    return [{"month": str(month), "events": int(observed.get(str(month), 0))} for month in periods]
 
 
 @app.get("/api/health")
@@ -114,7 +135,6 @@ def options():
 def overview(date_from: str | None = None, date_to: str | None = None, make: str | None = None, model: str | None = None, plant: str | None = None, category: str | None = None):
     source = load_events()
     df = filter_df(source, date_from, date_to, make, model, plant, category)
-    events_by_month = df.dropna(subset=["Opened date_parsed"]).assign(month=lambda x: x["Opened date_parsed"].dt.strftime("%Y-%m")).groupby("month").size().sort_index()
     components = df["Failure Component_parsed"].map(parse_list).explode().dropna() if "Failure Component_parsed" in df else pd.Series(dtype=str)
     conditions = df["Failure Condition_parsed"].map(parse_list).explode().dropna() if "Failure Condition_parsed" in df else pd.Series(dtype=str)
     fixes = df["Fix Condition_parsed"].map(parse_list).explode().dropna() if "Fix Condition_parsed" in df else pd.Series(dtype=str)
@@ -125,9 +145,13 @@ def overview(date_from: str | None = None, date_to: str | None = None, make: str
             combinations.extend([f"{part} · {state}" for part, state in zip(parts, states)])
     comp_counts = components.value_counts().head(12)
     cond_counts = conditions.value_counts().head(10)
-    summary = {"total_events": len(df), "unique_event_ids": int(df["Event id"].nunique()), "distinct_components": int(components.nunique()), "distinct_categories": int(df["issue_category"].nunique()), "distinct_causal_codes": int(df["CAUSAL_CD_DESC"].replace("", pd.NA).nunique()), "denominator": len(df)}
+    annotation_counts = {col: int(df[col].map(lambda value: bool(parse_list(value))).sum()) for col in ANNOTATION_COLUMNS if col in df}
+    has_annotations = df[[col for col in ANNOTATION_COLUMNS if col in df]].apply(lambda col: col.map(lambda value: bool(parse_list(value)))).any(axis=1) if any(col in df for col in ANNOTATION_COLUMNS) else pd.Series(False, index=df.index)
+    component_condition_records = int((df.get("Failure Component_parsed", pd.Series(False, index=df.index)).map(lambda value: bool(parse_list(value))) & df.get("Failure Condition_parsed", pd.Series(False, index=df.index)).map(lambda value: bool(parse_list(value)))).sum())
+    model_years = sorted({str(int(value)) for value in pd.to_numeric(df.get("MODLYR", pd.Series(dtype=float)), errors="coerce").dropna().unique()})
+    summary = {"total_events": len(df), "unique_event_ids": int(df["Event id"].nunique()), "distinct_components": int(components.nunique()), "distinct_categories": int(df["issue_category"].nunique()), "distinct_causal_codes": int(df["CAUSAL_CD_DESC"].replace("", pd.NA).nunique()), "distinct_complaint_codes": int(df["COMPLAINT_CD_DESC"].replace("", pd.NA).nunique()), "annotated_records": int(has_annotations.sum()), "annotation_field_counts": annotation_counts, "component_condition_records": component_condition_records, "distinct_plants": int(df["BUILD_PLANT_DESC"].replace("", pd.NA).nunique()), "model_years": model_years, "denominator": len(df)}
     recent = df.sort_values("Opened date_parsed", ascending=False).head(8)
-    return {"summary": summary, "monthly": [{"month": str(k), "events": int(v)} for k, v in events_by_month.items()], "complaints": count_series(df, "COMPLAINT_CD_DESC"), "causes": count_series(df, "CAUSAL_CD_DESC"), "issues": count_series(df, "issue_category"), "makes": count_series(df, "MAKE"), "models": count_series(df, "MODEL"), "plants": count_series(df, "BUILD_PLANT_DESC"), "components": [{"label": str(k), "count": int(v)} for k, v in comp_counts.items()], "conditions": [{"label": str(k), "count": int(v)} for k, v in cond_counts.items()], "fixes": [{"label": str(k), "count": int(v)} for k, v in fixes.value_counts().head(10).items()], "combinations": [{"label": str(k), "count": int(v)} for k, v in pd.Series(combinations).value_counts().head(10).items()], "recent": records_frame(recent).to_dict(orient="records")}
+    return {"summary": summary, "monthly": monthly_counts(source, df, date_from, date_to), "complaints": count_series(df, "COMPLAINT_CD_DESC"), "causes": count_series(df, "CAUSAL_CD_DESC"), "issues": count_series(df, "issue_category"), "makes": count_series(df, "MAKE"), "models": count_series(df, "MODEL"), "plants": count_series(df, "BUILD_PLANT_DESC", limit=100), "components": [{"label": str(k), "count": int(v)} for k, v in comp_counts.items()], "conditions": [{"label": str(k), "count": int(v)} for k, v in cond_counts.items()], "fixes": [{"label": str(k), "count": int(v)} for k, v in fixes.value_counts().head(10).items()], "combinations": [{"label": str(k), "count": int(v)} for k, v in pd.Series(combinations).value_counts().head(10).items()], "recent": records_frame(recent).to_dict(orient="records")}
 
 
 @app.get("/api/events")
