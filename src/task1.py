@@ -74,7 +74,7 @@ def scrape(product_url: str, max_pages: int = 20, delay: float = 1.5, sort: str 
     if max_pages < 1 or max_pages > 20:
         raise ValueError("max_pages must be between 1 and 20")
     session = requests.Session()
-    session.headers.update({"User-Agent": "AutoInsightAI-assessment/1.0 (public review analysis)"})
+    session.headers.update({"User-Agent": "AutoInsightAI/1.0 (public review analysis)"})
     records, visited, errors = {}, [], []
     page_url = product_url.rstrip("/") + ("" if product_url.rstrip("/").endswith("/review") else "/review")
     sorts = list(SORTS) if sort == "All" else [sort]

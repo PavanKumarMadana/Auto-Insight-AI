@@ -1,6 +1,6 @@
-# HanuAi ML Assessment — Task 2 Findings
+# AutoInsight AI — Task 2 Findings
 
-Generated: 2026-10-23 12:12 India Standard Time  
+Generated: 2026-10-23 12:38 India Standard Time  
 Source: `Hanuai_task2_assignment.csv` (copied unchanged to `data/raw/`).
 
 ## Executive summary

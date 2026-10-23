@@ -1,4 +1,4 @@
-# HanuAi ML Assessment — Task 1 Scraping and Sentiment Report
+# AutoInsight AI — Task 1 Scraping and Sentiment Report
 
 ## Collection status
 
@@ -16,4 +16,4 @@ The separate `analyze` command can process an authorized CSV without scraping. I
 
 ## Stakeholder use and current limitations
 
-No product-specific findings are available because no reviews were collected. When an authorized dataset is supplied, compare rating distribution and sentiment/aspect counts, then review examples behind frequent complaints before prioritizing product changes. Tag mentions are not proof that a feature caused satisfaction or dissatisfaction. The collection target of 50 reviews was not met, so the assessment's sentiment analysis objective remains incomplete pending a permitted source.
+No product-specific findings are available because no reviews were collected. When an authorized dataset is supplied, compare rating distribution and sentiment/aspect counts, then review examples behind frequent complaints before prioritizing product changes. Tag mentions are not proof that a feature caused satisfaction or dissatisfaction. The collection target of 50 reviews was not met, so sentiment findings remain unavailable until a permitted source is provided.

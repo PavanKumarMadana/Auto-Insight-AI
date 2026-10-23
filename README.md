@@ -1,8 +1,6 @@
-# HanuAi ML Assessment
+# AutoInsight AI
 
-AutoInsight AI is an intelligent analytics platform for automotive quality insights, combining NLP based sentiment analysis, exploratory data analysis, text mining, failure classification, clustering, and evidence based root cause investigation.
-
-This project implements the supplied two task assessment. The source CSV is preserved at `data/raw/Hanuai_task2_assignment.csv`; derived files are written under `outputs/` and reports under `reports/`.
+AutoInsight AI is an automotive quality analytics platform for exploring service events, sentiment, and recurring failure patterns. It combines exploratory analysis, text mining, clustering, and evidence based investigation while preserving traceability to the supplied source CSV at `data/raw/Hanuai_task2_assignment.csv`. Derived analysis files are written under `outputs/` and reports under `reports/`.
 
 ## Contents
 
@@ -120,7 +118,7 @@ For local API plus frontend development, `npm run dev:full` from `ui/` starts bo
 
 ## Responsible scraping and limitations
 
-The assessment mentions proxy rotation and CAPTCHA bypass as possible anti-scraping responses. This implementation instead follows public access boundaries: bounded requests, ordinary delays, stop-on-403/429, and no evasion. Seek permission, use official/authorized exports or APIs, or provide the analysis with already collected lawful data. Dataset limitations include one model year, a sample with no population/exposure denominator, sparse supplied entity annotations, and text-mining rules that need human validation.
+The supplied project brief mentions proxy rotation and CAPTCHA bypass as possible anti-scraping responses. This implementation follows public access boundaries: bounded requests, ordinary delays, stop-on-403/429, and no evasion. Seek permission, use official/authorized exports or APIs, or provide the analysis with already collected lawful data. Dataset limitations include one model year, a sample with no population/exposure denominator, sparse supplied entity annotations, and text-mining rules that need human validation.
 
 ## Submission checklist
 

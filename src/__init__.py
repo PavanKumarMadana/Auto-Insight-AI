@@ -1,1 +1,1 @@
-"""HanuAi assessment workflows."""
+"""AutoInsight AI analysis workflows."""
