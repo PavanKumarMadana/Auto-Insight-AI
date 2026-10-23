@@ -1,5 +1,7 @@
 # HanuAi ML Assessment
 
+AutoInsight AI is an intelligent analytics platform for automotive quality insights, combining NLP based sentiment analysis, exploratory data analysis, text mining, failure classification, clustering, and evidence based root cause investigation.
+
 This project implements the supplied two task assessment. The source CSV is preserved at `data/raw/Hanuai_task2_assignment.csv`; derived files are written under `outputs/` and reports under `reports/`.
 
 ## Contents
